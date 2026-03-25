@@ -1,4 +1,5 @@
 import { Page, Locator } from '@playwright/test';
+import content from '../content/myJournalsPage_content';
 
 export default class MyJournalsPage {
     private readonly page: Page;
@@ -6,7 +7,7 @@ export default class MyJournalsPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.writeLink = page.getByRole('link', { name: 'Write' });
+        this.writeLink = page.getByRole('link', { name: content.writeLinkName });
     }
 
     async clickWrite(): Promise<void> {

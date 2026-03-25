@@ -1,4 +1,5 @@
 import { Page, Locator } from '@playwright/test';
+import content from '../content/loginPage_content';
 
 export default class LoginPage {
     private readonly page: Page;
@@ -11,9 +12,9 @@ export default class LoginPage {
         this.page = page;
         this.formContainer = page.locator('div[data-auth-target="login"]');
         
-        this.emailInput = this.formContainer.locator('input[type="email"]');
-        this.passwordInput = this.formContainer.locator('input[type="password"]');
-        this.submitButton = this.formContainer.locator('input[type="submit"][value="Log in"]');
+        this.emailInput = this.formContainer.getByPlaceholder(content.emailPlaceholder);
+        this.passwordInput = this.formContainer.getByPlaceholder(content.passwordPlaceholder);
+        this.submitButton = this.formContainer.locator(`input[type="submit"][value="${content.submitButtonValue}"]`);
     }
 
     async login(email: string, password: string): Promise<void> {

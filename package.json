@@ -9,7 +9,6 @@
   },
   "scripts": {
     "test": "playwright test --project chromium --headed",
-    "test:happy": "playwright test tests/happy_path.spec.ts --project chromium --headed",
-    "test:alternate": "playwright test tests/alternate_path.spec.ts --project chromium --headed"
+    "test:flows": "playwright test tests/journal_flows.spec.ts --project chromium --headed"
   }
 }

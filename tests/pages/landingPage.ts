@@ -1,4 +1,5 @@
 import { Page, Locator } from '@playwright/test';
+import content from '../content/landingPage_content';
 
 export default class LandingPage {
     private readonly page: Page;
@@ -7,8 +8,8 @@ export default class LandingPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.loginMenuButton = page.locator('button', { hasText: 'Log in' }).first();
-        this.signupMenuButton = page.locator('button', { hasText: 'Sign up' }).first();
+        this.loginMenuButton = page.locator('button', { hasText: content.loginButton }).first();
+        this.signupMenuButton = page.locator('button', { hasText: content.signupButton }).first();
     }
 
     async goto(): Promise<void> {

@@ -1,4 +1,5 @@
 import { Page, Locator } from '@playwright/test';
+import content from '../content/signupPage_content';
 
 export default class SignupPage {
     private readonly page: Page;
@@ -14,12 +15,12 @@ export default class SignupPage {
         this.page = page;
         this.formContainer = page.locator('div[data-auth-target="signup"]');
         
-        this.firstNameInput = this.formContainer.locator('input[placeholder="First Name"]');
-        this.lastNameInput = this.formContainer.locator('input[placeholder="Last Name"]');
-        this.emailInput = this.formContainer.locator('input[placeholder="Email"]');
-        this.passwordInput = this.formContainer.locator('input[placeholder="Password (min 8)"]');
-        this.passwordConfirmInput = this.formContainer.locator('input[placeholder="Confirm Password"]');
-        this.submitButton = this.formContainer.locator('input[type="submit"][value="Sign up"]');
+        this.firstNameInput = this.formContainer.getByPlaceholder(content.firstNamePlaceholder);
+        this.lastNameInput = this.formContainer.getByPlaceholder(content.lastNamePlaceholder);
+        this.emailInput = this.formContainer.getByPlaceholder(content.emailPlaceholder);
+        this.passwordInput = this.formContainer.getByPlaceholder(content.passwordPlaceholder);
+        this.passwordConfirmInput = this.formContainer.getByPlaceholder(content.confirmPasswordPlaceholder);
+        this.submitButton = this.formContainer.locator(`input[type="submit"][value="${content.submitButtonValue}"]`);
     }
 
     async signup(firstName: string, lastName: string, email: string, password: string): Promise<void> {
