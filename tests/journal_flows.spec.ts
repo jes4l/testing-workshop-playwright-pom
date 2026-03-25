@@ -52,12 +52,12 @@ test.describe.serial("Journal Flows", () => {
 
         await journalViewerPage.waitForSplatToLoadInViewer();
 
-        await journalViewerPage.playAudioFor(10);
+        await journalViewerPage.playAudioFor(2);
 
         const closeBtn = page.locator('.btn-close-splat');
         await closeBtn.click();
 
-        await page.waitForTimeout(1000);
+        await page.waitForTimeout(500);
     });
 
     test(`Unhappy Path`, async ({ page }) => {
@@ -102,7 +102,7 @@ test.describe.serial("Journal Flows", () => {
 
         await communityPage.clickLatestPost();
         
-        await page.waitForTimeout(1000);
+        await page.waitForTimeout(500);
     });
 
 });

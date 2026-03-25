@@ -18,75 +18,57 @@ export default class WriteJournalPage {
         await this.addTextBtn.click();
         const textCanvas = this.page.locator('.canvas-content').last();
         await textCanvas.click();
-        await textCanvas.pressSequentially(text, { delay: 15 });
-        await this.page.waitForTimeout(1000);
+        await textCanvas.pressSequentially(text);
     }
 
     async editExistingText(newText: string): Promise<void> {
         const textCanvas = this.page.locator('.canvas-content').last();
         await textCanvas.click();
         await textCanvas.evaluate((node) => { node.textContent = ''; });
-        await textCanvas.pressSequentially(newText, { delay: 15 });
-        await this.page.waitForTimeout(1000);
+        await textCanvas.pressSequentially(newText);
     }
 
     async manipulateTextCanvas(): Promise<void> {
         const textElement = this.page.locator('.canvas-text').last();
         
         await this.dragRelative(textElement, '.drag-handle', 50, 50);
-        await this.page.waitForTimeout(1000);
-        
         await this.dragRelative(textElement, '.resize-handle', 100, 100);
-        await this.page.waitForTimeout(1000);
         await this.dragRelative(textElement, '.resize-handle', -50, -50);
-        await this.page.waitForTimeout(1000);
         
         const contentLocator = textElement.locator('.canvas-content');
         await contentLocator.click();
         
         const modifier = process.platform === 'darwin' ? 'Meta' : 'Control';
         await this.page.keyboard.press(`${modifier}+A`); 
-        await this.page.waitForTimeout(1000);
         
         const boldBtn = this.page.locator(`button[data-command="${content.boldCommand}"]`);
         await boldBtn.click();
-        await this.page.waitForTimeout(1000);
         await boldBtn.click();
-        await this.page.waitForTimeout(1000);
         
         const italicBtn = this.page.locator(`button[data-command="${content.italicCommand}"]`);
         await italicBtn.click();
-        await this.page.waitForTimeout(1000);
         await italicBtn.click();
-        await this.page.waitForTimeout(1000);
         
         const underlineBtn = this.page.locator(`button[data-command="${content.underlineCommand}"]`);
         await underlineBtn.click();
-        await this.page.waitForTimeout(1000);
         await underlineBtn.click();
-        await this.page.waitForTimeout(1000);
 
         const sizeSlider = this.page.locator('input[data-journal-editor-target="sizeInput"]');
         await sizeSlider.fill('6');
         await sizeSlider.dispatchEvent('input');
-        await this.page.waitForTimeout(1000);
         
         await sizeSlider.fill('2');
         await sizeSlider.dispatchEvent('input');
-        await this.page.waitForTimeout(1000);
 
         await sizeSlider.fill('4');
         await sizeSlider.dispatchEvent('input');
-        await this.page.waitForTimeout(1000);
         
         const fontSelect = this.page.locator('select[data-journal-editor-target="fontInput"]');
         await fontSelect.selectOption({ label: content.courierFont });
-        await this.page.waitForTimeout(1000);
         await fontSelect.selectOption({ label: content.patrickHandFont });
-        await this.page.waitForTimeout(1000);
         
         await this.page.keyboard.press('ArrowRight');
-        await this.page.waitForTimeout(500);
+        await this.page.waitForTimeout(200);
     }
 
     async uploadImage(filePath?: string): Promise<void> {
@@ -107,7 +89,6 @@ export default class WriteJournalPage {
         await expect(spinner).toBeHidden({ timeout: 20000 });
         
         await expect(this.page.locator('.canvas-img-container img').last()).toBeVisible();
-        await this.page.waitForTimeout(1000);
     }
 
     async deleteLastImage(): Promise<void> {
@@ -117,7 +98,6 @@ export default class WriteJournalPage {
         
         await deleteBtn.dispatchEvent('click');
         await expect(imgElement).toBeHidden({ timeout: 15000 });
-        await this.page.waitForTimeout(1000);
     }
 
     async formatTextBeforeSave(): Promise<void> {
@@ -126,32 +106,28 @@ export default class WriteJournalPage {
         
         const modifier = process.platform === 'darwin' ? 'Meta' : 'Control';
         await this.page.keyboard.press(`${modifier}+A`); 
-        await this.page.waitForTimeout(500);
+        await this.page.waitForTimeout(200);
         
         const boldBtn = this.page.locator(`button[data-command="${content.boldCommand}"]`);
         await boldBtn.click();
-        await this.page.waitForTimeout(500);
 
         const sizeSlider = this.page.locator('input[data-journal-editor-target="sizeInput"]');
         await sizeSlider.fill('6');
         await sizeSlider.dispatchEvent('input');
-        await this.page.waitForTimeout(1000);
+        await this.page.waitForTimeout(200);
     }
 
     async manipulateImageCanvas(): Promise<void> {
         const imgElement = this.page.locator('.canvas-img-container').last();
         
+        // Removed 1s timeouts
         await this.dragRelative(imgElement, '.drag-handle', 400, 0);
-        await this.page.waitForTimeout(1000);
-        
         await this.dragRelative(imgElement, '.resize-handle', 80, 80);
-        await this.page.waitForTimeout(1000);
         await this.dragRelative(imgElement, '.resize-handle', -40, -40);
-        await this.page.waitForTimeout(1000);
     }
 
     async saveJournal(): Promise<void> {
-        await this.page.waitForTimeout(1000);
+        await this.page.waitForTimeout(500);
         await this.saveBtn.scrollIntoViewIfNeeded();
 
         await Promise.all([
