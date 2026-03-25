@@ -1,5 +1,5 @@
 {
-  "name": "testing-workshop-playwright",
+  "name": "irl-journaly-tests",
   "packageManager": "yarn@4.6.0",
   "devDependencies": {
     "@playwright/test": "^1.56.0",
@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "playwright test --project chromium --headed",
-    "my_test": "playwright test tests/your_test.spec.ts --project chromium --headed"
+    "test:happy": "playwright test tests/happy_path.spec.ts --project chromium --headed",
+    "test:alternate": "playwright test tests/alternate_path.spec.ts --project chromium --headed"
   }
 }
