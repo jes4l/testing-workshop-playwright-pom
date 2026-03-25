@@ -13,7 +13,7 @@ let sharedEmail = "";
 
 test.describe.serial("Journal Flows", () => {
 
-    test(`Happy Path - Complete Journal Flow with UI manipulations and Download`, async ({ page }) => {
+    test(`Happy Path`, async ({ page }) => {
         test.setTimeout(180000); 
 
         const landingPage = new LandingPage(page);
@@ -30,7 +30,7 @@ test.describe.serial("Journal Flows", () => {
 
         await myJournalsPage.clickWrite();
 
-        await writeJournalPage.addTextBoxAndFill("Having a great day! Testing my Playwright suite with full UI manipulations.");
+        await writeJournalPage.addTextBoxAndFill("Having a great day! Testing my Playwright suite with buttons working.");
         
         await writeJournalPage.manipulateTextCanvas();
 
@@ -60,7 +60,7 @@ test.describe.serial("Journal Flows", () => {
         await page.waitForTimeout(1000);
     });
 
-    test(`Unhappy Path - Edit text, save, add image, and abandon without saving`, async ({ page }) => {
+    test(`Unhappy Path`, async ({ page }) => {
         test.setTimeout(180000);
 
         const landingPage = new LandingPage(page);

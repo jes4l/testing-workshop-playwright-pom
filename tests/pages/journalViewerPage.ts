@@ -33,12 +33,15 @@ export default class JournalViewerPage {
 
     async postImageToCommunity(): Promise<void> {
         const imageContainer = this.page.locator('.canvas-img-container').first();
+        
+        await expect(imageContainer).toBeVisible({ timeout: 15000 });
+        await this.page.waitForTimeout(500); 
+        
         await imageContainer.scrollIntoViewIfNeeded();
         await imageContainer.hover();
 
         const postBtn = imageContainer.locator('button', { hasText: content.postToCommunityText });
         
-        // Force true ensures it clicks even if the CSS transition is still fading in
         await postBtn.click({ force: true });
         
         await expect(imageContainer.locator('button', { hasText: content.postedText })).toBeVisible({ timeout: 10000 });
